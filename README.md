@@ -4,7 +4,7 @@
 
 This project implements a complete **Medallion Architecture** (Bronze-Silver-Gold) data lakehouse for a fashion warehouse management system using Databricks and Delta Lake.
 
-## 📋 Project Overview
+## Project Overview
 
 The Fashion Warehouse data pipeline processes operational data from multiple sources (Google Drive CSV files) and transforms it through three layers:
 
@@ -12,7 +12,7 @@ The Fashion Warehouse data pipeline processes operational data from multiple sou
 - **Silver Layer**: Cleaned, validated, and conformed data
 - **Gold Layer**: Business-level aggregates and analytics-ready datasets
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Google Drive CSVs
@@ -24,7 +24,7 @@ Google Drive CSVs
   Gold Layer (Business Analytics)
 ```
 
-## 📊 Data Model
+##  Data Model
 
 ### Bronze Layer Tables
 - `warehouses` - Warehouse locations and capacity data
@@ -61,7 +61,7 @@ Cleaned and validated versions of bronze tables with:
 - `fact_stock_movements` - Inventory movement events
 - `fact_scanner_events` - Scanner activity events
 
-## 🔑 Key Features
+##  Key Features
 
 ### Data Ingestion
 - Direct ingestion from Google Drive using Databricks connectors
@@ -81,29 +81,24 @@ Cleaned and validated versions of bronze tables with:
 - Employee tenure calculations
 - Date dimension with business flags (weekends, month/quarter/year starts/ends)
 
-### Analytics Features
-- **Profit Analysis**: Order value, cost, profit amount, and margin percentage
-- **Delivery Performance**: Delay tracking, fill rates, delivery status
-- **Inventory Management**: Stock movement tracking with employee attribution
-- **Time Intelligence**: Complete date dimension for time-series analysis
 
-## 🛠️ Technologies Used
+## 🛠️Technologies Used
 
-- **Platform**: Databricks
+- **Platform**: Azure Databricks 
 - **Storage**: Delta Lake
-- **Compute**: Serverless (CPU)
 - **Languages**: SQL, Python (PySpark)
-- **Source**: Google Drive CSV files
+- **Source**: Google Drive CSV files (files attached to document)
 
 ## 📁 Project Structure
 
 ```
 Bronze-Silver-Gold/
 ├── Fashion_Warehouse.ipynb    # Main ETL pipeline notebook
+├── Buesiness_Logic.ipynb      # Incoming 
 └── README.md                   # This file
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -128,53 +123,8 @@ The notebook is organized into sections:
 3. **Silver Layer Transformation** (Cells 5-34)
 4. **Gold Layer Creation** (Cells 35-64)
 
-Each CREATE/INSERT operation is followed by a SELECT LIMIT 5 preview for verification.
 
-## 📈 Business Metrics Available
-
-### Sales & Profitability
-- Order value and profit margins
-- Product performance by SKU
-- Customer lifetime value
-
-### Supply Chain
-- Delivery accuracy (fully/partially/over received)
-- Supplier performance (lead times, fill rates)
-- Delivery delays tracking
-
-### Warehouse Operations
-- Stock movement patterns
-- Scanner event analysis
-- Warehouse capacity utilization
-- Employee productivity
-
-## 🔍 Sample Queries
-
-### Top Products by Profit Margin
-```sql
-SELECT 
-    p.product,
-    AVG(o.profit_margin_pct) as avg_margin
-FROM fashion_warehouse.gold.fact_orders o
-JOIN fashion_warehouse.gold.dim_products p ON o.sku = p.sku
-GROUP BY p.product
-ORDER BY avg_margin DESC
-LIMIT 10;
-```
-
-### Delivery Performance by Supplier
-```sql
-SELECT 
-    d.supplier_name,
-    COUNT(*) as total_deliveries,
-    AVG(d.fill_rate_pct) as avg_fill_rate,
-    SUM(CASE WHEN d.is_delayed THEN 1 ELSE 0 END) as delayed_count
-FROM fashion_warehouse.gold.fact_deliveries d
-GROUP BY d.supplier_name
-ORDER BY avg_fill_rate DESC;
-```
-
-## 📝 Data Lineage
+## Data Lineage
 
 ```
 Google Drive CSV
@@ -186,21 +136,21 @@ Silver (Cleaned)
 Gold (Analytics)
 ```
 
-## 🔐 Data Governance
+##  Data Governance
 
 - All tables use **Delta Lake** format for ACID transactions
 - Primary and foreign key constraints enforced
 - Unity Catalog for centralized access control
 - Schema evolution supported through Delta Lake
 
-## 📊 Performance Optimizations
+## Performance Optimizations
 
 - Delta Lake format for efficient reads/writes
 - Partitioning ready (can be added to fact tables by date)
 - Serverless compute for auto-scaling
 - Query result caching through Delta Lake
 
-## 🧪 Testing & Validation
+##  Testing & Validation
 
 Each layer includes preview queries (LIMIT 5) to validate:
 - Schema correctness
@@ -208,16 +158,6 @@ Each layer includes preview queries (LIMIT 5) to validate:
 - Transformation accuracy
 - Referential integrity
 
-## 🚧 Future Enhancements
-
-- [ ] Add incremental data loading (MERGE statements)
-- [ ] Implement SCD Type 2 for dimension tracking
-- [ ] Add data quality checks with Great Expectations
-- [ ] Create monitoring dashboard
-- [ ] Implement automated testing
-- [ ] Add CI/CD pipeline
-- [ ] Partition large fact tables by date
-- [ ] Add data lineage visualization
 
 ## 👥 Contributing
 
