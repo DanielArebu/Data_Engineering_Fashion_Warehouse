@@ -82,14 +82,14 @@ Cleaned and validated versions of bronze tables with:
 - Date dimension with business flags (weekends, month/quarter/year starts/ends)
 
 
-## 🛠️Technologies Used
+## Technologies Used
 
 - **Platform**: Azure Databricks 
 - **Storage**: Delta Lake
 - **Languages**: SQL, Python (PySpark)
 - **Source**: Google Drive CSV files (files attached to document)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Bronze-Silver-Gold/
@@ -159,18 +159,15 @@ Each layer includes preview queries (LIMIT 5) to validate:
 - Referential integrity
 
 
-## 👥 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📧 Contact
+## Contact
 
 For questions or feedback, please open an issue in the repository.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
----
-
-**Built with ❤️ using Databricks and Delta Lake**
